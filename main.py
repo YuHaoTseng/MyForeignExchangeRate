@@ -1,6 +1,7 @@
 import sys
 import requests
 import datetime
+from ExchangeRate import MyExchangeRate
 
 def Download(URL, FileName):
     with open(FileName, mode='wb') as file:
@@ -19,8 +20,12 @@ if __name__ == "__main__":
         currency = str(sys.argv[1])
 
     try:
+        FilePath = str(datetime.date.today()) + "_" + currency + ".csv"
         # Download Exchange Rate CSV for Bank of Taiwan
-        Download(sourceURL + currency, str(datetime.date.today()) + "_" + currency + ".csv")
+        Download(sourceURL + currency + "?Lang=en-US", FilePath)
+
+        mExchangeRate = MyExchangeRate(FilePath, currency);
+        mExchangeRate.GenerateLineChart()
     except:
-        print("Unexpected error: ", sys.exe_info()[0])
+        print("Unexpected error: ", sys.exc_info()[0])
 
