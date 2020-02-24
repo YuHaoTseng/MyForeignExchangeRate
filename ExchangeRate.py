@@ -5,7 +5,6 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.dates import DateFormatter, WeekdayLocator, DayLocator, MONDAY, date2num
 import pandas as pd
-import numpy as np
 
 MyColumns = ['Date', 'CashRateSelling', 'CashRateBuying', 'SpotRateSelling', 'SpotRateBuying']
 
@@ -34,7 +33,6 @@ class MyExchangeRate:
         return DataFrame
 
     def GenerateLineChart(self):
-        print(self.ERDataFrame)
         mondays = WeekdayLocator(MONDAY)
         alldays = DayLocator()
         weekFormatter = DateFormatter('%Y%b%d')
@@ -72,3 +70,8 @@ class MyExchangeRate:
         plt.setp(plt.gca().get_xticklabels(), rotation = 45, horizontalalignment = 'right')
         plt.savefig(self.PNGFilename)
 
+    def DailyResult(self, FilePath):
+        file = open(FilePath, 'w+')
+        file.write("#!/bin/bash\n")
+        file.write("CURRENCY=" + self.currency + "\n")
+        file.close()

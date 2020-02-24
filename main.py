@@ -13,7 +13,7 @@ if __name__ == "__main__":
     sourceURL = "https://rate.bot.com.tw/xrt/flcsv/0/l6m/"
     currency = None
 
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print("Number of Parameters is incorrect.")
         exit(0)
     else:
@@ -26,6 +26,7 @@ if __name__ == "__main__":
 
         mExchangeRate = MyExchangeRate(FilePath, currency);
         mExchangeRate.GenerateLineChart()
+        mExchangeRate.DailyResult(sys.argv[2])
     except:
         print("Unexpected error: ", sys.exc_info()[0])
 
